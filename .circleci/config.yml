@@ -1,13 +1,11 @@
 version: 2.1
 
+orbs:
+  node: circleci/node@x.y # replace orb version
+
 jobs:
-  build:
-    docker:
-      - image: "circleci/node:16"
+  test:
+    executor: node/default # use the default executor specified by the orb
     steps:
       - checkout
-
-workflows:
-  build:
-    jobs:
-      - build
+      - node/install-packages # Use a command from the orb in a job's steps
