@@ -2,7 +2,8 @@ version: 2.1
 
 jobs:
   build:
-    working_directory: /tmp
+    docker:
+      - image: "circleci/node:10.16.0"
     steps:
       - checkout
       - setup_remote_docker:
