@@ -5,16 +5,10 @@ jobs:
     docker:
       - image: cimg/base:2023.06
     steps:
-      - run:
-          name: Install `docker-compose`
-          command: |
-            curl -L https://github.com/docker/compose/releases/download/1.19.0/docker-compose-`uname -s`-`uname -m` > ~/docker-compose
-            chmod +x ~/docker-compose
-            sudo mv ~/docker-compose /usr/local/bin/docker-compose
+      - checkout
       - setup_remote_docker:
           docker_layer_caching: false 
 
-      - checkout
       - run:
           name: Build using `docker-compose`
           command: |
