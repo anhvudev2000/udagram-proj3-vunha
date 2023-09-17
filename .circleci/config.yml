@@ -6,9 +6,6 @@ jobs:
       - image: "circleci/node:16"
     steps:
       - checkout
-      - run:
-          name: Always Passing Step
-          command: echo "This step always passes"
 
 workflows:
   build:
