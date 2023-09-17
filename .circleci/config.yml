@@ -1,15 +1,26 @@
 version: 2.1
 
-orbs:
-  node: circleci/node@4.0.1 # replace orb version
-
 jobs:
-  test:
-    executor: node/default # use the default executor specified by the orb
+  build:
+    docker:
+      - image: circleci/node:16
+
     steps:
       - checkout
-      - node/install-packages # Use a command from the orb in a job's steps
+      - run:
+          name: Install Docker Compose
+          command: |
+            sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+            sudo chmod +x /usr/local/bin/docker-compose
+            docker-compose version
+
+      - run:
+          name: Build with Docker Compose
+          command: |
+            cd udagram-proj3-vunha
+            docker-compose -f docker-compose-build.yaml build
+
 workflows:
   build:
     jobs:
-      - test
+      - build
